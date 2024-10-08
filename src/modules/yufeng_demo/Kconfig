@@ -1,0 +1,12 @@
+menuconfig MODULES_YUFENG_DEMO
+	bool "yufeng_demo"
+	default n
+	---help---
+		Enable support for yufeng_demo
+
+menuconfig USER_MC_POS_CONTROL
+	bool "yufeng_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_YUFENG_DEMO
+	---help---
+		Put yufeng_demo in userspace memory
