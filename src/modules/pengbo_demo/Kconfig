@@ -1,0 +1,12 @@
+menuconfig MODULES_pengbo_DEMO
+	bool "pengbo_demo"
+	default n
+	---help---
+		Enable support for pengbo_demo
+
+menuconfig USER_MC_POS_CONTROL
+	bool "pengbo_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_pengbo_DEMO
+	---help---
+		Put pengbo_demo in userspace memory
