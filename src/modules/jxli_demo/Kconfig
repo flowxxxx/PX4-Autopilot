@@ -1,0 +1,13 @@
+menuconfig MODULES_JXLI_DEMO
+	bool "jxli_demo"
+	default n
+	---help---
+		Enable support for jxli_demo
+
+menuconfig USER_MC_POS_CONTROL
+	bool "jxli_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_JXLI_DEMO
+	---help---
+		Put jxli_demo in userspace memory
+
