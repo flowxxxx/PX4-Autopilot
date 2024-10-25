@@ -55,7 +55,17 @@ private:
 	perf_counter_t _cycle_perf{perf_alloc(PC_ELAPSED, MODULE_NAME": cycle time")};
 
 	uORB::SubscriptionCallbackWorkItem _local_pos_sub {this, ORB_ID(vehicle_local_position)};	/**< vehicle local position */
-       
+        uORB::SubscriptionInterval _parameter_update_sub {ORB_ID(parameter_update), 1_s};
+
 	void parameters_update(bool force);
 
+	bool jx_li_en;
+	float jx_li_len;
+
+	DEFINE_PARAMETERS(
+		(ParamFloat<px4::params::JX_LI_LEN>)     _param_jx_li_len,
+		(ParamInt<px4::params::JX_LI_EN>)        _param_jx_li_en
+	)
+
 };
+

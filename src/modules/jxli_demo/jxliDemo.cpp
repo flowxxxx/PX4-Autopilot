@@ -38,7 +38,16 @@ bool jxliDemo::init()
 
 void jxliDemo::parameters_update(bool force)
 {
+	if (_parameter_update_sub.updated() || force){
+		parameter_update_s pupdate;
+		_parameter_update_sub.copy(&pupdate);
 
+		ModuleParams::updateParams();
+		SuperBlock::updateParams();
+
+		jx_li_en = _param_jx_li_en.get();
+		jx_li_len = _param_jx_li_len.get();
+	}
 }
 
 
@@ -52,7 +61,7 @@ void jxliDemo::Run()
 	}
 
 	// reschedule backup
-	ScheduleDelayed(100_ms);
+	ScheduleDelayed(1000_ms);
 
 	parameters_update(false);
 
@@ -64,8 +73,13 @@ void jxliDemo::Run()
 		const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
 		_time_stamp_last_loop = time_stamp_now;
 
-        printf("Hello sky! %f\r\n", (double)dt);
-	}
+        	if (jx_li_en) {
+			printf("Hello sky! %f\r\n", (double)dt);
+		}
+		else{
+			printf("Hello Sky! %f\r\n", (double)jx_li_len);
+		}
+        }
 	perf_end(_cycle_perf);
 }
 
