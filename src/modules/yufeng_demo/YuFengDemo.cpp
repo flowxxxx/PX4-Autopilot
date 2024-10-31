@@ -103,15 +103,16 @@ void YuFengDemo::Run()
 
 	if (_local_pos_sub.update(&local_pos)) {
 		const hrt_abstime time_stamp_now = local_pos.timestamp_sample;
-		const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
+		// const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
 		_time_stamp_last_loop = time_stamp_now;
 
-		if (yu_feng_en) {
-			printf("Hello sky! %f\r\n", (double)dt);
-		}
-		else{
-			printf("Hello Sky! %f\r\n", (double)yu_feng_len);
-		}
+		// if (yu_feng_en) {
+		// 	// printf("Hello sky! %f\r\n", (double)dt);
+		// 	printf("陆空切换中! %f\r\n", (double)time_stamp_now);
+		// }
+		// else{
+		// 	printf("等待陆空切换指令! %f\r\n", (double)yu_feng_len);
+		// }
 
 		sensor_combined_s imu;
 		if (_sensor_combined_sub.update(&imu)){
