@@ -78,6 +78,18 @@ void ZhengYuDemo::Run()
 		else{
 			printf("Hello Sky! %f\r\n", (double)zheng_yu_len);
 		}
+
+		sensor_combined_s imu;
+		if (_sensor_combined_sub.update(&imu)){
+			zhengyu_demo_s zhengyu;
+			zhengyu.enable = true;
+			zhengyu.timestamp = hrt_absolute_time();
+			zhengyu.acc[0] = imu.accelerometer_m_s2[0];
+			zhengyu.acc[1] = imu.accelerometer_m_s2[1];
+			zhengyu.acc[2] = imu.accelerometer_m_s2[2];
+			zhengyu.acc_norm = sqrt(zhengyu.acc[0]*zhengyu.acc[0]+zhengyu.acc[1]*zhengyu.acc[1]+zhengyu.acc[2]*zhengyu.acc[2]);
+			_zhengyu_demo_pub.publish(zhengyu);
+		}
 	}
 	perf_end(_cycle_perf);
 }

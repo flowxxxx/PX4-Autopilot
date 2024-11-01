@@ -262,6 +262,7 @@ set(msg_files
 	Wind.msg
 	YawEstimatorStatus.msg
 	yufeng_demo.msg
+	zhengyu_demo.msg
 )
 list(SORT msg_files)
 
