@@ -1,5 +1,4 @@
 #include "ZhengYuDemo.hpp"
-
 #include <float.h>
 #include <lib/mathlib/mathlib.h>
 #include <lib/matrix/matrix/math.hpp>
