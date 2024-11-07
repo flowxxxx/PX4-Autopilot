@@ -62,17 +62,17 @@
 #include <uORB/topics/vehicle_land_detected.h>
 #include <uORB/topics/vehicle_local_position.h>
 #include <uORB/topics/vehicle_local_position_setpoint.h>
-/*#include <uORB/topics/yufeng_demo.h>
+/*#include <uORB/topics/yiming_demo.h>
 #include <uORB/topics/sensor_combined.h>
 */
 using namespace time_literals;
 
-class YuFengDemo : public ModuleBase<YuFengDemo>, public control::SuperBlock,
+class yimingDemo : public ModuleBase<yimingDemo>, public control::SuperBlock,
 	public ModuleParams, public px4::ScheduledWorkItem
 {
 public:
-	YuFengDemo();
-	~YuFengDemo() override;
+	yimingDemo();
+	~yimingDemo() override;
 
 	/** @see ModuleBase */
 	static int task_spawn(int argc, char *argv[]);
@@ -96,7 +96,7 @@ private:
     
  /* uORB::SubscriptionInterval _parameter_update_sub {ORB_ID(parameter_update), 1_s};*/
 	/*uORB::Subscription _sensor_combined_sub {ORB_ID(sensor_combined)};*/
-	/*uORB::Publication<yufeng_demo_s> _yufeng_demo_pub {ORB_ID(yufeng_demo)};*/	/**< vehicle local position setpoint publication */   
+	/*uORB::Publication<yiming_demo_s> _yiming_demo_pub {ORB_ID(yiming_demo)};*/	/**< vehicle local position setpoint publication */   
 
 
 	void parameters_update(bool force);

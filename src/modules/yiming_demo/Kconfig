@@ -1,0 +1,12 @@
+menuconfig MODULES_YIMING_DEMO
+	bool "yiming_demo"
+	default n
+	---help---
+		Enable support for yiming_demo
+
+menuconfig USER_MC_POS_CONTROL
+	bool "yiming_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_YIMING_DEMO
+	---help---
+		Put yiming_demo in userspace memory
