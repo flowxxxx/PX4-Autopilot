@@ -79,6 +79,18 @@ void jxliDemo::Run()
 		else{
 			printf("Hello Sky! %f\r\n", (double)jx_li_len);
 		}
+
+		sensor_combined_s imu;
+		if (_sensor_combined_sub.update(&imu)){
+			jxli_demo_s jxli;
+			jxli.enable = true;
+			jxli.timestamp = hrt_absolute_time();
+			jxli.acc[0] = imu.accelerometer_m_s2[0];
+			jxli.acc[1] = imu.accelerometer_m_s2[1];
+			jxli.acc[2] = imu.accelerometer_m_s2[2];
+			jxli.acc_norm = sqrt(jxli.acc[0]*jxli.acc[0] + jxli.acc[1]*jxli.acc[1] + jxli.acc[2]*jxli.acc[2]);
+			_jxli_demo_pub.publish(jxli);
+		}
         }
 	perf_end(_cycle_perf);
 }
