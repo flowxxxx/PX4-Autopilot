@@ -1,0 +1,12 @@
+menuconfig MODULES_LIZHI_DEMO
+	bool "lizhi_demo"
+	default n
+	---help---
+		Enable support for lizhi_demo
+
+menuconfig USER_MC_POS_CONTROL
+	bool "lizhi_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_LIZHI_DEMO
+	---help---
+		Put lizhi_demo in userspace memory

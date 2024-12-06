@@ -31,7 +31,7 @@
  *
  ****************************************************************************/
 
-#include "YuFengDemo.hpp"
+#include "yimingDemo.hpp"
 
 #include <float.h>
 #include <lib/mathlib/mathlib.h>
@@ -41,7 +41,7 @@
 
 using namespace matrix;
 
-YuFengDemo::YuFengDemo() :
+yimingDemo::yimingDemo() :
 	SuperBlock(nullptr, "MPC"),
 	ModuleParams(nullptr),
 	ScheduledWorkItem(MODULE_NAME, px4::wq_configurations::nav_and_controllers)
@@ -51,12 +51,12 @@ YuFengDemo::YuFengDemo() :
 }
 
 
-YuFengDemo::~YuFengDemo()
+yimingDemo::~yimingDemo()
 {
 	perf_free(_cycle_perf);
 }
 
-bool YuFengDemo::init()
+bool yimingDemo::init()
 {
 	if (!_local_pos_sub.registerCallback()) {
 		PX4_ERR("callback registration failed");
@@ -69,7 +69,7 @@ bool YuFengDemo::init()
 	return true;
 }
 
-void YuFengDemo::parameters_update(bool force)
+void yimingDemo::parameters_update(bool force)
 {
 	/*if (_parameter_update_sub.updated() || force){
 		parameter_update_s pupdate;
@@ -85,7 +85,7 @@ void YuFengDemo::parameters_update(bool force)
 
 
 
-void YuFengDemo::Run()
+void yimingDemo::Run()
 {
 	if (should_exit()) {
 		_local_pos_sub.unregisterCallback();
@@ -116,14 +116,14 @@ void YuFengDemo::Run()
 
 		/*sensor_combined_s imu;
 		if (_sensor_combined_sub.update(&imu)){
-			yufeng_demo_s yufeng;
-			yufeng.enable = true;
-			yufeng.timestamp = hrt_absolute_time();
-			yufeng.acc[0] = imu.accelerometer_m_s2[0];
-			yufeng.acc[1] = imu.accelerometer_m_s2[1];
-			yufeng.acc[2] = imu.accelerometer_m_s2[2];
-			yufeng.acc_norm = sqrt(yufeng.acc[0]*yufeng.acc[0] + yufeng.acc[1]*yufeng.acc[1] + yufeng.acc[2]*yufeng.acc[2]);
-			_yufeng_demo_pub.publish(yufeng);
+			yiming_demo_s yiming;
+			yiming.enable = true;
+			yiming.timestamp = hrt_absolute_time();
+			yiming.acc[0] = imu.accelerometer_m_s2[0];
+			yiming.acc[1] = imu.accelerometer_m_s2[1];
+			yiming.acc[2] = imu.accelerometer_m_s2[2];
+			yiming.acc_norm = sqrt(yiming.acc[0]*yiming.acc[0] + yiming.acc[1]*yiming.acc[1] + yiming.acc[2]*yiming.acc[2]);
+			_yiming_demo_pub.publish(yiming);
 		}*/
 	}
 	perf_end(_cycle_perf);
@@ -131,10 +131,10 @@ void YuFengDemo::Run()
 
 
 
-int YuFengDemo::task_spawn(int argc, char *argv[])
+int yimingDemo::task_spawn(int argc, char *argv[])
 {
 
-	YuFengDemo *instance = new YuFengDemo();
+	yimingDemo *instance = new yimingDemo();
 
 	if (instance) {
 		_object.store(instance);
@@ -155,12 +155,12 @@ int YuFengDemo::task_spawn(int argc, char *argv[])
 	return PX4_ERROR;
 }
 
-int YuFengDemo::custom_command(int argc, char *argv[])
+int yimingDemo::custom_command(int argc, char *argv[])
 {
 	return print_usage("unknown command");
 }
 
-int YuFengDemo::print_usage(const char *reason)
+int yimingDemo::print_usage(const char *reason)
 {
 	if (reason) {
 		PX4_WARN("%s\n", reason);
@@ -169,17 +169,17 @@ int YuFengDemo::print_usage(const char *reason)
 	PRINT_MODULE_DESCRIPTION(
 		R"DESCR_STR(
 ### Description
-	YuFeng Demo.
+	yiming Demo.
 )DESCR_STR");
 
-	PRINT_MODULE_USAGE_NAME("yufeng_demo", "controller");
+	PRINT_MODULE_USAGE_NAME("yiming_demo", "controller");
 	PRINT_MODULE_USAGE_COMMAND("start");
 	PRINT_MODULE_USAGE_DEFAULT_COMMANDS();
 
 	return 0;
 }
 
-extern "C" __EXPORT int yufeng_demo_main(int argc, char *argv[])
+extern "C" __EXPORT int yiming_demo_main(int argc, char *argv[])
 {
-	return YuFengDemo::main(argc, argv);
+	return yimingDemo::main(argc, argv);
 }
