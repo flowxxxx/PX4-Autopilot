@@ -259,10 +259,10 @@ set(msg_files
 	VelocityLimits.msg
 	VtolVehicleStatus.msg
 	WheelEncoders.msg
-	Wind.msg
 	YawEstimatorStatus.msg
 	yufeng_demo.msg
 	jxli_demo.msg
+	zhengyu_demo.msg
 )
 list(SORT msg_files)
 

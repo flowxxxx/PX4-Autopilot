@@ -1,5 +1,4 @@
 #include "ZhengYuDemo.hpp"
-
 #include <float.h>
 #include <lib/mathlib/mathlib.h>
 #include <lib/matrix/matrix/math.hpp>
@@ -38,7 +37,16 @@ bool ZhengYuDemo::init()
 
 void ZhengYuDemo::parameters_update(bool force)
 {
-	
+	if (_parameter_update_sub.updated() || force){
+		parameter_update_s pupdate;
+		_parameter_update_sub.copy(&pupdate);
+
+		ModuleParams::updateParams();
+		SuperBlock::updateParams();
+
+		zheng_yu_en = _param_zheng_yu_en.get();
+		zheng_yu_len = _param_zheng_yu_len.get();
+	}
 }
 
 
@@ -64,7 +72,24 @@ void ZhengYuDemo::Run()
 		const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
 		_time_stamp_last_loop = time_stamp_now;
 
-		printf("Hello Sky! %f\r\n", (double)dt);
+		if (zheng_yu_en){
+			printf("Hello Sky! %f\r\n", (double)dt);
+		}
+		else{
+			printf("Hello Sky! %f\r\n", (double)zheng_yu_len);
+		}
+
+		sensor_combined_s imu;
+		if (_sensor_combined_sub.update(&imu)){
+			zhengyu_demo_s zhengyu;
+			zhengyu.enable = true;
+			zhengyu.timestamp = hrt_absolute_time();
+			zhengyu.acc[0] = imu.accelerometer_m_s2[0];
+			zhengyu.acc[1] = imu.accelerometer_m_s2[1];
+			zhengyu.acc[2] = imu.accelerometer_m_s2[2];
+			zhengyu.acc_norm = sqrt(zhengyu.acc[0]*zhengyu.acc[0]+zhengyu.acc[1]*zhengyu.acc[1]+zhengyu.acc[2]*zhengyu.acc[2]);
+			_zhengyu_demo_pub.publish(zhengyu);
+		}
 	}
 	perf_end(_cycle_perf);
 }

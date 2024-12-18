@@ -71,7 +71,7 @@ bool YuFengDemo::init()
 
 void YuFengDemo::parameters_update(bool force)
 {
-	if (_parameter_update_sub.updated() || force){
+	/*if (_parameter_update_sub.updated() || force){
 		parameter_update_s pupdate;
 		_parameter_update_sub.copy(&pupdate);
 
@@ -80,7 +80,7 @@ void YuFengDemo::parameters_update(bool force)
 
 		yu_feng_en = _param_yu_feng_en.get();
 		yu_feng_len = _param_yu_feng_len.get();
-	}
+	}*/
 }
 
 
@@ -103,17 +103,18 @@ void YuFengDemo::Run()
 
 	if (_local_pos_sub.update(&local_pos)) {
 		const hrt_abstime time_stamp_now = local_pos.timestamp_sample;
-		const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
+		 const float dt = math::constrain(((time_stamp_now - _time_stamp_last_loop) * 1e-6f), 0.002f, 0.04f);
 		_time_stamp_last_loop = time_stamp_now;
 
-		if (yu_feng_en) {
-			printf("Hello sky! %f\r\n", (double)dt);
-		}
-		else{
-			printf("Hello Sky! %f\r\n", (double)yu_feng_len);
-		}
+		// if (yu_feng_en) {
+		printf("Hello sky! %f\r\n", (double)dt);
+		// 	printf("陆空切换中! %f\r\n", (double)time_stamp_now);
+		// }
+		// else{
+		// 	printf("等待陆空切换指令! %f\r\n", (double)yu_feng_len);
+		// }
 
-		sensor_combined_s imu;
+		/*sensor_combined_s imu;
 		if (_sensor_combined_sub.update(&imu)){
 			yufeng_demo_s yufeng;
 			yufeng.enable = true;
@@ -123,7 +124,7 @@ void YuFengDemo::Run()
 			yufeng.acc[2] = imu.accelerometer_m_s2[2];
 			yufeng.acc_norm = sqrt(yufeng.acc[0]*yufeng.acc[0] + yufeng.acc[1]*yufeng.acc[1] + yufeng.acc[2]*yufeng.acc[2]);
 			_yufeng_demo_pub.publish(yufeng);
-		}
+		}*/
 	}
 	perf_end(_cycle_perf);
 }
