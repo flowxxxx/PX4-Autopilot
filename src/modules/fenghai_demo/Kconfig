@@ -1,0 +1,13 @@
+menuconfig MODULES_FENGHAI_DEMO
+	bool "fenghai_demo"
+	default n
+	---help---
+		Enable support for fenghai_demo
+		
+menuconfig USER_MC_POS_CONTROL
+
+	bool "fenghai_demo running as userspace module"
+	default y
+	depends on BOARD_PROTECTED && MODULES_FENGHAI_DEMO
+	---help---
+		Put fenghai_demo in userspace memory
