@@ -62,9 +62,9 @@
 #include <uORB/topics/vehicle_land_detected.h>
 #include <uORB/topics/vehicle_local_position.h>
 #include <uORB/topics/vehicle_local_position_setpoint.h>
-#include <uORB/topics/yufeng_demo.h>
+/*#include <uORB/topics/yufeng_demo.h>
 #include <uORB/topics/sensor_combined.h>
-
+*/
 using namespace time_literals;
 
 class YuFengDemo : public ModuleBase<YuFengDemo>, public control::SuperBlock,
@@ -93,20 +93,20 @@ private:
 	perf_counter_t _cycle_perf{perf_alloc(PC_ELAPSED, MODULE_NAME": cycle time")};
 
 	uORB::SubscriptionCallbackWorkItem _local_pos_sub {this, ORB_ID(vehicle_local_position)};	/**< vehicle local position */
-        uORB::SubscriptionInterval _parameter_update_sub {ORB_ID(parameter_update), 1_s};
-	uORB::Subscription _sensor_combined_sub {ORB_ID(sensor_combined)};
-	uORB::Publication<yufeng_demo_s> _yufeng_demo_pub {ORB_ID(yufeng_demo)};	/**< vehicle local position setpoint publication */
-
+    
+ /* uORB::SubscriptionInterval _parameter_update_sub {ORB_ID(parameter_update), 1_s};*/
+	/*uORB::Subscription _sensor_combined_sub {ORB_ID(sensor_combined)};*/
+	/*uORB::Publication<yufeng_demo_s> _yufeng_demo_pub {ORB_ID(yufeng_demo)};*/	/**< vehicle local position setpoint publication */   
 
 
 	void parameters_update(bool force);
 
-	bool yu_feng_en;
+	/*bool yu_feng_en;
 	float yu_feng_len;
 
 	DEFINE_PARAMETERS(
 		(ParamFloat<px4::params::YU_FENG_LEN>)     _param_yu_feng_len,
 		(ParamInt<px4::params::YU_FENG_EN>)        _param_yu_feng_en
-	)
+	)*/
 
 };
